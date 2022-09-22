@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { useTestStore } from '@/stores/global'
 useHead({
   htmlAttrs: {
     lang: 'pt-BR'
@@ -13,8 +12,6 @@ useHead({
     { name: 'description', content: 'AF - Soluções em Contabilidade' }
   ]
 })
-
-// const testStore = useTestStore()
 </script>
 
 <template>
@@ -28,8 +25,9 @@ useHead({
     <LazyHomeFeatures />
     <LazyHomeFaq />
     <LazyHomeTestimonials />
-    <LazyHomeContact class="" />
+    <LazyHomeContact />
     <LazyHomeFooter />
+    <SharedModalsLogin />
   </div>
 </template>
 

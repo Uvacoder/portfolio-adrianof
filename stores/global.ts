@@ -1,18 +1,18 @@
 import { defineStore } from 'pinia'
 
 const state = () => ({
-  message: 'Hello'
+  isLoginModalOpen: false
 })
 
 // const getters = {}
 
 const actions = {
-  changeMessage(message: string) {
-    this.message = message
+  toggleLoginModal() {
+    this.isLoginModalOpen = !this.isLoginModalOpen
   }
 }
 
-export const useTestStore = defineStore('test', {
+export const useGlobalStore = defineStore('globals', {
   state,
   actions
 })

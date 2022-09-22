@@ -31,7 +31,7 @@
                 <a v-for="item in navigation" :key="item.name" :href="item.href"
                   class="font-medium text-gray-500 hover:text-gray-900">{{ item.name }}
                 </a>
-                <a href="#" class="ml-auto font-medium text-indigo-600 hover:text-indigo-500">Área do Cliente</a>
+                <a @click.prevent="globals.isLoginModalOpen = true" class="ml-auto font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer">Área do Cliente</a>
               </div>
             </nav>
           </div>
@@ -100,6 +100,9 @@
 
 <script setup>
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { useGlobalStore } from '@/stores/global'
+
+const globals = useGlobalStore()
 
 const navigation = [
   { name: 'Serviços', href: '#features' },
