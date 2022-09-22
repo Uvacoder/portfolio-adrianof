@@ -1,6 +1,6 @@
 import { Config } from 'tailwindcss'
 
-export default <Config> {
+export default <Config>{
   content: [
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
@@ -11,7 +11,5 @@ export default <Config> {
   theme: {
     extend: {}
   },
-  plugins: [
-    require('@tailwindcss/forms')
-  ]
+  plugins: [require('@tailwindcss/forms')]
 }
