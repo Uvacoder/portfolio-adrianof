@@ -75,7 +75,7 @@
             </h1>
             <p
               class="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-              Com mais de 79 anos de experiência como contabilista, sou perito em previsão orçamental, análise de
+              Com mais de {{ new Date().getFullYear() - 1999 }} anos de experiência como contabilista, sou perito em previsão orçamental, análise de
               variância e elaboração de relatórios.</p>
             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               <div class="rounded-md shadow">

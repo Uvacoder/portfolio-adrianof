@@ -30,33 +30,18 @@
 const features = [
   {
     name: 'Imposto de Renda',
-    description: 'Pessoa Física ou Jurídica',
-    icon: 'ic:baseline-business',
+    description: 'Para Pessoa Física ou Pessoa Jurídica, retificadoras, revisões',
+    icon: 'emojione-monotone:lion-face',
   },
   {
-    name: 'Abertura e Fechamento de Empresas',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    name: 'Abertura e Encerramento de Empresas',
+    description: 'Regularização de toda a documentação, dos direitos e dos deveres do seu empreendimento.',
     icon: 'ic:baseline-business',
   },
   {
     name: 'Consultorias',
-    description: 'Ac tincidunt sapien vehicula erat .',
-    icon: 'heroicons-outline:arrow-path',
-  },
-  {
-    name: 'Advanced Security',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit .',
-    icon: 'heroicons-outline:shield-check',
-  },
-  {
-    name: 'Powerful API',
-    description: 'Ac magna sit .',
-    icon: 'heroicons-outline:cog',
-  },
-  {
-    name: 'Database Backups',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit .',
-    icon: 'heroicons-outline:server',
-  },
+    description: 'Soluções personalizadas para oferecer integridade de informações na áreas de Contabilidade, Fiscal, Trabalhista e Financeiro.',
+    icon: 'carbon:help-desk',
+  }
 ]
 </script>
