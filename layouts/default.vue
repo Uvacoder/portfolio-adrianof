@@ -20,7 +20,7 @@ useHead({
     { property: "og:title", content: social.title },
     { property: "og:description", content: social.description },
     { property: "og:image", content: social.image },
-    { property: "twitter:card", content: 'summary_large_image' },
+    { name: "twitter:card", content: 'summary_large_image' },
     { property: "twitter:title", content: social.title },
     { property: "twitter:description", content: social.description },
     { property: "twitter:image", content: social.image }
