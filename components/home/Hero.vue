@@ -13,8 +13,8 @@
               <div class="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
                 <div class="flex w-full items-center justify-between md:w-auto">
                   <!-- <a href="#" class="brand"> -->
-                    <Icon name="ri:home-2-line" class="brand h-8 w-auto sm:h-8" />
-                    <!-- <span class="sr-only">Your Company</span>
+                  <Icon name="ri:home-2-line" class="brand h-8 w-auto sm:h-8" />
+                  <!-- <span class="sr-only">Your Company</span>
                     <img alt="Your Company" class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" /> -->
                   <!-- </a> -->
                   <div class="-mr-2 flex items-center md:hidden">
@@ -31,7 +31,10 @@
                 <a v-for="item in navigation" :key="item.name" :href="item.href"
                   class="font-medium text-gray-500 hover:text-gray-900">{{ item.name }}
                 </a>
-                <a @click.prevent="globals.isLoginModalOpen = true" class="ml-auto font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer">Área do Cliente</a>
+                <a href="#" @click.prevent="globals.isLoginModalOpen = true"
+                  class="ml-auto font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer">
+                  Área do Cliente
+                </a>
               </div>
             </nav>
           </div>
@@ -44,8 +47,7 @@
               <div class="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                 <div class="flex items-center justify-between px-5 pt-4">
                   <div>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="" />
+                    <Icon name="ri:home-2-line" class="brand h-8 w-auto sm:h-8" />
                   </div>
                   <div class="-mr-2">
                     <PopoverButton
@@ -60,7 +62,10 @@
                     class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">{{
                     item.name }}</a>
                 </div>
-                <!-- <a href="#" class="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100">Log in</a> -->
+                <a href="#" @click.prevent="globals.isLoginModalOpen = true"
+                  class="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-indigo-600 hover:bg-gray-100">
+                  Área do Cliente
+                </a>
               </div>
             </PopoverPanel>
           </transition>
@@ -75,7 +80,8 @@
             </h1>
             <p
               class="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-              Com mais de {{ new Date().getFullYear() - 1999 }} anos de experiência como contabilista, sou perito em previsão orçamental, análise de
+              Com mais de {{ new Date().getFullYear() - 1999 }} anos de experiência como contabilista, sou perito em
+              previsão orçamental, análise de
               variância e elaboração de relatórios.</p>
             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               <div class="rounded-md shadow">
@@ -92,8 +98,10 @@
       </div>
     </div>
     <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-      <img width="768" height="622" class="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full" src="/images/adriano_frederico.jpg"
-        alt="Adriano Frederico" />
+      <NuxtImg provider="cloudinary" src="v1663898075/adriano/adriano_frederico_y5lfam" format="webp" width="1023"
+        height="682" alt="Adriano Frederico" />
+      <!-- <img width="768" height="622" class="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
+        src="/images/adriano_frederico.jpg" alt="Adriano Frederico" /> -->
     </div>
   </div>
 </template>
@@ -104,6 +112,9 @@ import { useGlobalStore } from '@/stores/global'
 
 const globals = useGlobalStore()
 
+const logOnLoad = (e) => {
+  console.log('loaded', e)
+}
 const navigation = [
   { name: 'Serviços', href: '#features' },
   { name: 'FAQ', href: '#faq' },
