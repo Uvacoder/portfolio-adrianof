@@ -1,4 +1,5 @@
-<template>  
+<template>
+  <div>
     <HomeHero />
     <LazyHomeFeatures />
     <LazyHomeFaq />
@@ -6,5 +7,6 @@
     <LazyHomeContact />
     <LazyHomeFooter />
     <SharedModalsLogin />
+  </div>
 </template>
 

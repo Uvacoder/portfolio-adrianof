@@ -80,18 +80,15 @@
             </h1>
             <p
               class="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-              Com mais de {{ new Date().getFullYear() - 1999 }} anos de experiência como contabilista, sou perito em
-              previsão orçamental, análise de
-              variância e elaboração de relatórios.</p>
+              Com mais de {{ new Date().getFullYear() - 1999 }} anos de experiência como contador, sou perito em
+              previsão orçamental, análise de variância e elaboração de relatórios.
+            </p>
             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               <div class="rounded-md shadow">
                 <a href="#contact"
                   class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">Fazer
                   Orçamento</a>
               </div>
-              <!-- <div class="mt-3 sm:mt-0 sm:ml-3">
-                <a href="#" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg">Live demo</a>
-              </div> -->
             </div>
           </div>
         </main>
@@ -100,8 +97,6 @@
     <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
       <NuxtImg provider="cloudinary" src="v1663898075/adriano/adriano_frederico_y5lfam" format="webp" width="1023"
         height="682" alt="Adriano Frederico" />
-      <!-- <img width="768" height="622" class="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
-        src="/images/adriano_frederico.jpg" alt="Adriano Frederico" /> -->
     </div>
   </div>
 </template>

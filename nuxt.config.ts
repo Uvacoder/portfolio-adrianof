@@ -33,9 +33,19 @@ export default defineNuxtConfig({
     }
   },
   tailwindcss: {
-    viewer: true
+    viewer: process.env.NODE_ENV !== 'production'
   },
   typescript: {
     shim: false
+  },
+  runtimeConfig: {
+    // The private keys which are only available within server-side
+    sendgridApiKey: process.env.SENDGRID_API_KEY,
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || null,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || null,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || null,
+    public: {
+      recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY
+    }
   }
 })
