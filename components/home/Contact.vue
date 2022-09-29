@@ -53,13 +53,14 @@
                 </label>
               </p>
               <label :for="input.name" class="sr-only">Message</label>
-              <input v-if="input.type === 'text'" :id="input.name" :name="input.name" :type="input.type"
-                :autocomplete="(input.autocomplete as string)"
+              <input v-if="input.type !== 'textarea'" :id="input.name" :name="input.name" :type="input.type"
+                :autocomplete="(input.autocomplete as string)" :required="input.required"
                 class="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 :placeholder="input.placeholder" v-model="formData[i].value" />
               <textarea v-if="input.type === 'textarea'" :id="input.name" :name="input.name" rows="4"
+                :required="input.required"
                 class="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                :placeholder="input.placeholder" v-model="formData[i].value" />
+                :placeholder="input.placeholder" v-model="formData[i].value"></textarea>
             </div>
             <div class="sm:flex sm:flex-row justify-between text-center sm:text-right">
               <button type="submit" :disabled="isLoading"
@@ -67,13 +68,7 @@
                 <Icon v-if="isLoading" name="eos-icons:bubble-loading" class="h-6 w-6" aria-hidden="true" />
                 <span v-else>Enviar</span>
               </button>
-              <div class="text-gray-400 sm:max-w-sm">
-                This site is protected by reCAPTCHA and the Google
-                <a class="link underline decoration-1 text-blue-400" href="https://policies.google.com/privacy"
-                  target="_blank" rel="noopener">Privacy Policy</a> and
-                <a class="link underline decoration-1 text-blue-400" href="https://policies.google.com/terms"
-                  target="_blank" rel="noopener">Terms of Service</a> apply.
-              </div>
+              <SharedRecaptchaPrivacyAndTerms />
             </div>
           </form>
         </div>
@@ -94,31 +89,35 @@ const isLoading = ref(false)
 const formData = reactive([
   {
     name: 'full-name',
-    placeholder: 'Nome completo',
+    placeholder: 'Nome completo*',
     autocomplete: 'name',
     type: 'text',
-    value: null
+    value: null,
+    required: true
   },
   {
     name: 'email',
-    placeholder: 'Email',
+    placeholder: 'Email*',
     autocomplete: 'email',
     type: 'text',
-    value: null
+    value: null,
+    required: true
   },
   {
     name: 'phone',
     placeholder: 'Telefone',
     autocomplete: 'tel',
-    type: 'text',
-    value: null
+    type: 'tel',
+    value: null,
+    required: false
   },
   {
     name: 'message',
-    placeholder: 'Mensagem',
+    placeholder: 'Mensagem*',
     autocomplete: false,
     type: 'textarea',
-    value: null
+    value: null,
+    required: true
   }
 ])
 
@@ -128,6 +127,10 @@ const encode = (data) => {
       key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
     )
     .join("&");
+}
+
+const cleanForm = () => {
+  formData.forEach(data => data.value = null)
 }
 
 const sendEmail = async () => {
@@ -156,6 +159,7 @@ const sendEmail = async () => {
   } else {
     toast.error('Algo deu errado 😥, por favor tente novamente em alguns minutos...')
   }
+  cleanForm()
   isLoading.value = false
 }
 
