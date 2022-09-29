@@ -45,8 +45,13 @@
       <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
         <div class="mx-auto max-w-lg lg:max-w-none">
           <form name="contact-form" action="#" method="POST" class="grid grid-cols-1 gap-y-6"
-            @submit.prevent="sendEmail" data-netlify="true">
+            @submit.prevent="sendEmail" data-netlify="true" netlify-honeypot="bot-field">
             <div v-for="input, i in formData" :key="input.name">
+              <p class="hidden">
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </p>
               <label :for="input.name" class="sr-only">Message</label>
               <input v-if="input.type === 'text'" :id="input.name" :name="input.name" :type="input.type"
                 :autocomplete="(input.autocomplete as string)"
@@ -58,7 +63,10 @@
             </div>
             <div class="sm:flex sm:flex-row justify-between text-center sm:text-right">
               <button type="submit"
-                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 mb-4 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Submit</button>
+                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 w-28 mb-4 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <Icon v-if="isLoading" name="eos-icons:bubble-loading" class="h-6 w-6" aria-hidden="true" />
+                <span v-else>Submit</span>
+              </button>
               <div class="text-gray-400 sm:max-w-sm">
                 This site is protected by reCAPTCHA and the Google
                 <a class="link underline decoration-1 text-blue-400" href="https://policies.google.com/privacy"
@@ -78,6 +86,8 @@
 import { useReCaptcha } from 'vue-recaptcha-v3'
 import axios from "axios"
 const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
+
+const isLoading = ref(false)
 
 const formData = reactive([
   {
@@ -119,6 +129,7 @@ const encode = (data) => {
 }
 
 const sendEmail = async () => {
+  isLoading.value = true
   await recaptchaLoaded()
   const token = await executeRecaptcha('send_email')
   console.log(token)
@@ -139,7 +150,10 @@ const sendEmail = async () => {
   const axiosConfig = {
     headers: { "Content-Type": "application/x-www-form-urlencoded" }
   }
-  axios.post("/", formDataEncoded, axiosConfig)
+  const res = await axios.post("/", formDataEncoded, axiosConfig)
+  console.log('res', res)
+  console.log('data', res.data)
+  isLoading.value = false
 }
 
 interface NavigationItem {
