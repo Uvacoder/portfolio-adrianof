@@ -65,7 +65,7 @@
               <button type="submit" :disabled="isLoading"
                 class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 w-28 mb-4 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 <Icon v-if="isLoading" name="eos-icons:bubble-loading" class="h-6 w-6" aria-hidden="true" />
-                <span v-else>Submit</span>
+                <span v-else>Enviar</span>
               </button>
               <div class="text-gray-400 sm:max-w-sm">
                 This site is protected by reCAPTCHA and the Google
