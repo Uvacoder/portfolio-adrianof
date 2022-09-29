@@ -62,7 +62,7 @@
                 :placeholder="input.placeholder" v-model="formData[i].value" />
             </div>
             <div class="sm:flex sm:flex-row justify-between text-center sm:text-right">
-              <button type="submit"
+              <button type="submit" :disabled="isLoading"
                 class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 w-28 mb-4 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 <Icon v-if="isLoading" name="eos-icons:bubble-loading" class="h-6 w-6" aria-hidden="true" />
                 <span v-else>Submit</span>
@@ -83,12 +83,14 @@
 </template>
 
 <script setup lang="ts">
-import { useReCaptcha } from 'vue-recaptcha-v3'
 import axios from "axios"
+import { useReCaptcha } from 'vue-recaptcha-v3'
+import { useToast } from "vue-toastification"
+
 const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
+const toast = useToast()
 
 const isLoading = ref(false)
-
 const formData = reactive([
   {
     name: 'full-name',
@@ -132,7 +134,6 @@ const sendEmail = async () => {
   isLoading.value = true
   await recaptchaLoaded()
   const token = await executeRecaptcha('send_email')
-  console.log(token)
   if (!token) {
     return
   }
@@ -146,13 +147,15 @@ const sendEmail = async () => {
     "form-name": "contact-form",
     ...data
   })
-  console.log(formDataEncoded)
   const axiosConfig = {
     headers: { "Content-Type": "application/x-www-form-urlencoded" }
   }
   const res = await axios.post("/", formDataEncoded, axiosConfig)
-  console.log('res', res)
-  console.log('data', res.data)
+  if (res.status === 200) {
+    toast.success('Mensagem enviada com sucesso! 😁')
+  } else {
+    toast.error('Algo deu errado 😥, por favor tente novamente em alguns minutos...')
+  }
   isLoading.value = false
 }
 

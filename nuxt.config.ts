@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     '@nuxt/image-edge'
   ],
   build: {
+    transpile: ['vue-toastification'],
     postcss: {
       postcssOptions: {
         plugins: {
@@ -26,7 +27,7 @@ export default defineNuxtConfig({
       }
     }
   },
-  css: ['@/assets/css/main.scss'],
+  css: ['@/assets/css/main.scss', 'vue-toastification/dist/index.css'],
   image: {
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/adrianofrederico/image/upload/'
@@ -40,7 +41,6 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     // The private keys which are only available within server-side
-    sendgridApiKey: process.env.SENDGRID_API_KEY,
     cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME || null,
     cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || null,
     cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || null,
