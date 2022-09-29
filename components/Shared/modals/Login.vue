@@ -7,7 +7,7 @@
             class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
             <label :for="input.name"
               class="absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-xs font-medium text-gray-900">{{input.placeholder}}</label>
-            <input :type="input.name" :name="input.name" :id="input.name" :autocomplete="input.name"
+            <input :id="input.id" :type="input.name" :name="input.name" :autocomplete="input.name"
               class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
               :placeholder="input.placeholder" />
           </div>
@@ -37,13 +37,15 @@ const formInputs = [
     name: 'email',
     placeholder: 'Email',
     autocomplete: 'email',
-    type: 'text'
+    type: 'text',
+    id: 'login-email'
   },
   {
     name: 'password',
     placeholder: 'Senha',
     autocomplete: false,
-    type: 'password'
+    type: 'password',
+    id: 'login-password'
   }
 ]
 </script>
