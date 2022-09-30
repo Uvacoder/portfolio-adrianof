@@ -44,33 +44,37 @@
       </div>
       <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
         <div class="mx-auto max-w-lg lg:max-w-none">
-          <form name="contact-form" action="#" method="POST" class="grid grid-cols-1 gap-y-6"
-            @submit.prevent="sendEmail" data-netlify="true" netlify-honeypot="bot-field">
-            <div v-for="input, i in formData" :key="input.name">
+          <FormKit id="contact-form" name="Formulário de contato" type="form" :actions="false"
+            :incomplete-message="false" @submit="sendEmail" :disabled="isLoading" data-netlify="true"
+            netlify-honeypot="bot-field">
+            <template #default="{ state: { valid } }">
               <p class="hidden">
                 <label>
                   Don't fill this out if you're human: <input name="bot-field" />
                 </label>
               </p>
-              <label :for="input.name" class="sr-only">Message</label>
-              <input v-if="input.type !== 'textarea'" :id="input.name" :name="input.name" :type="input.type"
-                :autocomplete="(input.autocomplete as string)" :required="input.required"
-                class="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                :placeholder="input.placeholder" v-model="formData[i].value" />
-              <textarea v-if="input.type === 'textarea'" :id="input.name" :name="input.name" rows="4"
-                :required="input.required"
-                class="block w-full rounded-md border-gray-300 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                :placeholder="input.placeholder" v-model="formData[i].value"></textarea>
-            </div>
-            <div class="sm:flex sm:flex-row justify-between text-center sm:text-right">
-              <button type="submit" :disabled="isLoading"
-                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 w-28 mb-4 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                <Icon v-if="isLoading" name="eos-icons:bubble-loading" class="h-6 w-6" aria-hidden="true" />
-                <span v-else>Enviar</span>
-              </button>
-              <SharedRecaptchaPrivacyAndTerms />
-            </div>
-          </form>
+              <FormKit type="text" name="name" label="* Nome" placeholder="Seu nome" validation="required" />
+              <FormKit type="email" name="email" label="* Email" placeholder="email@exemplo.com"
+                validation="required|email" />
+              <FormKit type="tel" name="phone" label="Telefone" placeholder="(xx) xxxxx - xxxx" />
+              <FormKit type="textarea" name="message" label="* Mensagem" placeholder="Digite sua mensagem..."
+                validation="required" rows="4" />
+
+              <div class="sm:flex sm:flex-row justify-between text-center sm:text-right">
+                <FormKit type="submit" :label="isLoading ? ' ': 'Enviar'" :disabled="!valid || isLoading" :classes="{
+                  outer: '$reset mb-5 w-28 h-14',
+                  input: 'w-full flex justify-center items-center rounded-md bg-indigo-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 disabled:bg-gray-400' 
+                }">
+                  <template #suffixIcon>
+                    <Icon v-if="isLoading" :name="'eos-icons:bubble-loading'" class="h-6 w-6 text-lg" aria-hidden="true" />
+                  </template>
+                </FormKit>
+
+                <SharedRecaptchaPrivacyAndTerms />
+              </div>
+
+            </template>
+          </FormKit>
         </div>
       </div>
     </div>
@@ -81,45 +85,12 @@
 import axios from "axios"
 import { useReCaptcha } from 'vue-recaptcha-v3'
 import { useToast } from "vue-toastification"
+import { reset as resetForm } from '@formkit/core'
 
 const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
 const toast = useToast()
 
 const isLoading = ref(false)
-const formData = reactive([
-  {
-    name: 'full-name',
-    placeholder: 'Nome completo*',
-    autocomplete: 'name',
-    type: 'text',
-    value: null,
-    required: true
-  },
-  {
-    name: 'email',
-    placeholder: 'Email*',
-    autocomplete: 'email',
-    type: 'text',
-    value: null,
-    required: true
-  },
-  {
-    name: 'phone',
-    placeholder: 'Telefone',
-    autocomplete: 'tel',
-    type: 'tel',
-    value: null,
-    required: false
-  },
-  {
-    name: 'message',
-    placeholder: 'Mensagem*',
-    autocomplete: false,
-    type: 'textarea',
-    value: null,
-    required: true
-  }
-])
 
 const encode = (data) => {
   return Object.keys(data)
@@ -129,37 +100,28 @@ const encode = (data) => {
     .join("&");
 }
 
-const cleanForm = () => {
-  formData.forEach(data => data.value = null)
-}
-
-const sendEmail = async () => {
+const sendEmail = async (data) => {
   isLoading.value = true
   await recaptchaLoaded()
   const token = await executeRecaptcha('send_email')
   if (!token) {
     return
   }
-  const data = {
-    name: formData[0].value,
-    email: formData[1].value,
-    phone: formData[2].value,
-    message: formData[3].value
-  }
   const formDataEncoded = encode({
-    "form-name": "contact-form",
+    "form-name": "Formulário de contato",
     ...data
   })
   const axiosConfig = {
     headers: { "Content-Type": "application/x-www-form-urlencoded" }
   }
   const res = await axios.post("/", formDataEncoded, axiosConfig)
+  await useSleep(2000)
   if (res.status === 200) {
     toast.success('Mensagem enviada com sucesso! 😁')
   } else {
     toast.error('Algo deu errado 😥, por favor tente novamente em alguns minutos...')
   }
-  cleanForm()
+  resetForm('contact-form')
   isLoading.value = false
 }
 
