@@ -1,4 +1,5 @@
 import { Config } from 'tailwindcss'
+import formKitTailwind from '@formkit/themes/tailwindcss'
 
 export default <Config>{
   content: [
@@ -6,10 +7,11 @@ export default <Config>{
     './layouts/**/*.vue',
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}'
+    './nuxt.config.{js,ts}',
+    './formkit.config.ts'
   ],
   theme: {
     extend: {}
   },
-  plugins: [require('@tailwindcss/forms')]
+  plugins: [require('@tailwindcss/forms'), formKitTailwind]
 }

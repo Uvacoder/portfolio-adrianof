@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
-    '@nuxt/image-edge'
+    '@nuxt/image-edge',
+    '@formkit/nuxt'
   ],
   build: {
     transpile: ['vue-toastification'],

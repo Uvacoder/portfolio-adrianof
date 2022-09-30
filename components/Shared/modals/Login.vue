@@ -2,26 +2,29 @@
   <UIModal :isOpen="globals.isLoginModalOpen" @on-close="globals.isLoginModalOpen = false">
     <div class="bg-white p-4 sm:px-6 lg:col-span-3 lg:py-8 lg:px-8">
       <div class="mx-auto max-w-lg lg:max-w-none">
-        <form action="#" method="POST" class="grid grid-cols-1 gap-y-6" @submit.prevent>
-          <div v-for="input in formInputs" :key="input.name"
-            class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-indigo-600 focus-within:ring-1 focus-within:ring-indigo-600">
-            <label :for="input.name"
-              class="absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-xs font-medium text-gray-900">{{input.placeholder}}</label>
-            <input :id="input.id" :type="input.name" :name="input.name" :autocomplete="input.name"
-              class="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
-              :placeholder="input.placeholder" />
-          </div>
-
-          <button type="submit"
-            class="w-full inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Log In
-          </button>
-
-          <button @click="globals.isLoginModalOpen = false"
-            class="w-full inline-flex justify-center rounded-md border border-transparent bg-red-600  py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Fechar
-          </button>
-        </form>
+        <FormKit type="form" :actions="false" :incomplete-message="false" @submit="tryLogin" :disabled="isLoading">
+          <template #default="{ state: { valid } }">
+            <FormKit type="email" name="email" label="Email" validation="required|email" />
+            <FormKit type="password" name="password" label="Senha" validation="required|password" />
+            <FormKit type="submit" label="Login" :disabled="!valid || isLoading" :classes="{
+              outer: '$reset mb-5',
+              input: 'w-full flex justify-center items-center rounded-md bg-indigo-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 disabled:bg-gray-400' 
+            }">
+              <template #suffixIcon>
+                <Icon :name="isLoading ? 'eos-icons:bubble-loading' : 'material-symbols:login'" class="h-6 w-6 ml-2"
+                  aria-hidden="true" />
+              </template>
+            </FormKit>
+            <FormKit type="button" label="Fechar" @click="globals.isLoginModalOpen = false" :classes="{
+              outer: '$reset',
+              input: 'w-full flex justify-center items-center rounded-md bg-red-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-red-700'
+            }">
+              <template #suffixIcon>
+                <Icon name="line-md:close-circle" class="h-6 w-6 ml-2" aria-hidden="true" />
+              </template>
+            </FormKit>
+          </template>
+        </FormKit>
       </div>
     </div>
   </UIModal>
@@ -29,23 +32,21 @@
 
 <script setup>
 import { useGlobalStore } from '@/stores/global'
+import { useToast } from "vue-toastification"
 
 const globals = useGlobalStore()
+const toast = useToast()
+const isLoading = ref(false)
 
-const formInputs = [
-  {
-    name: 'email',
-    placeholder: 'Email',
-    autocomplete: 'email',
-    type: 'text',
-    id: 'login-email'
-  },
-  {
-    name: 'password',
-    placeholder: 'Senha',
-    autocomplete: false,
-    type: 'password',
-    id: 'login-password'
+const tryLogin = async (data) => {
+  isLoading.value = true
+  console.log(data)
+  await useSleep(2000)
+  if (data.email === 'adriano.frederico@gmail.com') {
+    toast.warning('Carai Dri... calma neh!?!? Nao ta pronto ainda pô, sai fora!!! kkkkk')
+  } else {
+    toast.error('Usuário não cadastrado')
   }
-]
+  isLoading.value = false
+}
 </script>
