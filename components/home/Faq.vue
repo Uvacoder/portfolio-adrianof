@@ -32,26 +32,28 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 
 const faqs = [
   {
-    question: "What's the best thing about Switzerland?",
+    question: 'Preciso declarar Imposto de Renda?',
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      `Todo cidadão que tenha recebido mais de R$ 28.559,70 em rendimentos tributáveis no decorrer
+      do ano anterior ao ano em que será realizada a declaração precisa prestar contas à Receita Federal.
+      Mas cuidado, existem exceções à regra e outros fatores que indicam obrigatoriedade da declaração!`,
   },
   {
-    question: "What's the best thing about Switzerland?",
+    question: 'Qual o prazo para a Declaração do Imposto de Renda?',
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      `O prazo final para a entrega da declaração é no dia 30 de abril. Porém, no ano de 2021, por um apelo da classe
+      contadora e do Congresso Nacional, devido a pandemia que estamos vivendo, a Receita Federal adiou
+      a entrega da DIRPF para o dia 31 de maio.`,
   },
   {
-    question: "What's the best thing about Switzerland?",
+    question: 'Qual a diferença entre declaração simples e completa?',
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-  },
-  {
-    question: "What's the best thing about Switzerland?",
-    answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-  },
-
+      `Na declaração do IR simples, a Receita Federal utilizará o desconto padrão de 20% sobre todos os
+      seus rendimentos tributáveis declarados, limitados a R$ 16.754,34.
+      Já na declaração completa, o desconto padrão poderá ser menor que 20%, e isso dependerá dos seus
+      gastos dedutíveis (que reduzem o valor do desconto), como despesas com educação (ensino fundamental,
+      médio, superior e pós-graduação), saúde ou dependente(s).`,
+  }
   // More questions...
 ]
 </script>
