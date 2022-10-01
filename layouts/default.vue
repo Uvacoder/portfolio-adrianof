@@ -28,10 +28,6 @@ useHead({
 
 <template>
   <div class="container max-w-screen-2xl mx-auto ">
-    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 my-4" role="alert">
-      <p class="font-bold">Site Em Desenvolvimento</p>
-      <p class="text-sm">Algumas Funcionalidades podem não estar funcionando.</p>
-    </div>
     <slot></slot>
   </div>
 </template>
