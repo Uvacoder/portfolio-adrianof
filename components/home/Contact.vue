@@ -86,6 +86,7 @@ import axios from "axios"
 import { useReCaptcha } from 'vue-recaptcha-v3'
 import { useToast } from "vue-toastification"
 import { reset as resetForm } from '@formkit/core'
+import { event } from 'vue-gtag'
 
 const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
 const toast = useToast()
@@ -122,6 +123,7 @@ const sendEmail = async (data) => {
     toast.error('Algo deu errado 😥, por favor tente novamente em alguns minutos...')
   }
   resetForm('contact-form')
+  event('send-contact', data)
   isLoading.value = false
 }
 

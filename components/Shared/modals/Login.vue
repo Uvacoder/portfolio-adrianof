@@ -33,6 +33,7 @@
 <script setup>
 import { useGlobalStore } from '@/stores/global'
 import { useToast } from "vue-toastification"
+import { event } from 'vue-gtag'
 
 const globals = useGlobalStore()
 const toast = useToast()
@@ -47,6 +48,9 @@ const tryLogin = async (data) => {
   } else {
     toast.error('Usuário não cadastrado')
   }
+  event('login', {
+    userEmail: data.email
+  })
   isLoading.value = false
 }
 </script>
